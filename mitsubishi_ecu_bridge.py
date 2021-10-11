@@ -62,8 +62,8 @@ def main():
             sh2_main()
         else:
             print('\t\tProcessor is unsupported')
-    except:
-        pass
+    except Exception as e:
+        print('ERROR: %s' % e)
     finally:
         #Commit changes always
         currentProgram.endTransaction(transaction, True)
