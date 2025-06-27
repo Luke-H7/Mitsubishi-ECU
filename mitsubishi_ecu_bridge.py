@@ -130,7 +130,7 @@ def sh2_main():
     createVectorTable()
     print('Creating Structures')
     #createStructures()
-    analyzeAll(currentProgram)
+    #analyzeAll(currentProgram)
 
 
 def main():
@@ -157,7 +157,17 @@ def main():
         if str(processor) == 'SuperH':
             #Process is SH-2 so run SuperH Analysis
             print('\t\tProcessor is SuperH\n')
-            sh2_main()
+            #sh2_main()
+            refs = getReferencesTo(toAddr(0xC28))
+            for ref in refs:
+                print(ref)
+            func = getFunctionAt(toAddr(0xC28))
+            print(func)
+            print(func.getSignature())
+            print(func.getParameters()[0])
+            print(type(func.getParameters()[0]))
+            func.replaceParameters(
+                ['pointer param_1@r4:4'], ghidra.program.model.listing.Function.FunctionUpdateType.CUSTOM_STORAGE, True)
         else:
             print('\t\tProcessor is unsupported')
     except Exception as e:
